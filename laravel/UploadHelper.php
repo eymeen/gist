@@ -1,11 +1,5 @@
 <?php
-/**
- * Simple class to upload files 
- *
- * @author Ayman Eid
- * @version 1.0
- * @link https://github.com/eymeen/gist/blob/main/laravel/UploadHelper.php
- */
+
 namespace App\Helpers;
 
 use Image;
@@ -15,6 +9,21 @@ use Illuminate\Support\Facades\File;
 class UploadHelper
 {
 
+    /**
+     * upload Upload Any Types of File. It's not checking the file type which may be checked before pass here in validation
+     * @param  [type] $files            [array of file names => files]
+     * @param  [type] $target_location [location where files will store]
+     * @return [type]                  [filenames]
+     */
+    public static function multi_upload($files, $target_location)
+    {
+        $filenames = [];
+
+        foreach ($files as $key => $file) {
+            $filenames[$key] = self::upload($file, $key, $target_location);
+        }
+        return $filenames;
+    }
     /**
      * upload Upload Any Types of File. It's not checking the file type which may be checked before pass here in validation
      * @param  [type] $f               [request for file or not]
